@@ -1,9 +1,10 @@
 import React from "react";
 import "./style.css";
+import { Table } from "react-bootstrap";
 
-function Table(props) {
+function ResultsTable(props) {
     return (
-        <table className="table">
+        <Table>
             <thead>
                 <tr>
                     <th scope="col">Image</th>
@@ -16,8 +17,8 @@ function Table(props) {
             <tbody>
                 {props.children}
             </tbody>
-        </table>
+        </Table>
     );
 }
 
-export default Table;
+export default ResultsTable;
