@@ -8,7 +8,8 @@ import TRow from "../TRow";
 class SearchContainer extends Component {
     state = {
         results: [],
-        search: ""
+        search: "",
+        sort: "ascending"
     }
 
     searchEmployees = () => {
@@ -54,10 +55,11 @@ class SearchContainer extends Component {
             }
             var x = a.toLowerCase();
             var y = b.toLowerCase();
-            if(x < y) {return -1;}
-            if(x > y) {return 1;}
+            if(x < y) {return this.state.sort === "ascending" ? -1 : 1;}
+            if(x > y) {return this.state.sort === "ascending" ? 1 : -1;}
             return 0;
         })
+        this.setState({ sort: this.state.sort === "ascending" ? "descending" : "ascending" })
         this.setState({ results: sortedEmployees });
     }
 
@@ -66,11 +68,13 @@ class SearchContainer extends Component {
             <Container>
                 <Row>
                     <Col></Col>
-                    <Col><Search 
+                    <Col>
+                        <Search 
                             value={this.state.search}
                             handleInputChange={this.handleInputChange}
                             searchLastName={this.filterEmployee}
-                        /></Col>
+                        />
+                    </Col>
                     <Col></Col>
                 </Row>
                 <Row>
