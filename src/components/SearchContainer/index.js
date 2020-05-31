@@ -7,15 +7,14 @@ import TRow from "../TRow";
 
 class SearchContainer extends Component {
     state = {
-        results: []
+        results: [],
+        search: ""
     }
 
     searchEmployees = () => {
         API.search()
         .then(res => {
-            this.setState({ results: res.data.results })
-            console.log("API data", res.data.results);
-            console.log("State data", this.state.results);
+            this.setState({ results: res.data.results });
         })
         .catch(err => console.log(err));
     }
@@ -24,16 +23,58 @@ class SearchContainer extends Component {
         this.searchEmployees();
     }
 
+    filterEmployee = event => {
+        event.preventDefault();
+
+        if(this.state.search !== ""){
+            const employees = this.state.results.filter(result => result.name.last === this.state.search );
+            this.setState({ results: employees });
+        }else{
+            this.searchEmployees();
+        }
+    }
+
+    handleInputChange = event => {
+        const value = event.target.value;
+        const name = event.target.name;
+
+        this.setState({
+            [name]: value
+        })
+    }
+
+    handleSortTable = key => {
+        const employees = this.state.results;
+        let sortedEmployees = [...employees];
+        sortedEmployees.sort((a,b) => {
+            const keys = key.split(".");
+            for(let i = 0; i < keys.length; i++){
+                a = a[keys[i]];
+                b = b[keys[i]];
+            }
+            var x = a.toLowerCase();
+            var y = b.toLowerCase();
+            if(x < y) {return -1;}
+            if(x > y) {return 1;}
+            return 0;
+        })
+        this.setState({ results: sortedEmployees });
+    }
+
     render() {
         return (
             <Container>
                 <Row>
                     <Col></Col>
-                    <Col><Search/></Col>
+                    <Col><Search 
+                            value={this.state.search}
+                            handleInputChange={this.handleInputChange}
+                            searchLastName={this.filterEmployee}
+                        /></Col>
                     <Col></Col>
                 </Row>
                 <Row>
-                    <ResultsTable>
+                    <ResultsTable onClick={this.handleSortTable}>
                         {this.state.results.map(result => (
                             <TRow
                                 key={result.id.value}

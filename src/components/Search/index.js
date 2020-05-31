@@ -1,19 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 import "./style.css";
 
-class Search extends Component {
-    render() {
-        return (
-            <form className="form">
-                <input
-                    className="form-control"
-                    name="search"
-                    type="text"
-                    placeholder="Search"
-                />
-            </form>
-        );
-    }
+function Search(props) {
+    return (
+        <form className="form" onSubmit={props.searchLastName}>
+            <input
+                onChange={props.handleInputChange}
+                value={props.value}
+                className="form-control"
+                name="search"
+                type="text"
+                placeholder="Search"
+            />
+        </form>
+    );
 }
 
 export default Search;
