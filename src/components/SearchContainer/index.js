@@ -66,7 +66,7 @@ class SearchContainer extends Component {
     render() {
         return (
             <Container>
-                <Row>
+                <div className="row my-5">
                     <Col></Col>
                     <Col>
                         <Search 
@@ -76,7 +76,7 @@ class SearchContainer extends Component {
                         />
                     </Col>
                     <Col></Col>
-                </Row>
+                </div>
                 <Row>
                     <ResultsTable onClick={this.handleSortTable}>
                         {this.state.results.map(result => (

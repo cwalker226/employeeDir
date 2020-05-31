@@ -1,18 +1,18 @@
 import React from "react";
 import "./style.css";
+import { Form } from "react-bootstrap";
 
 function Search(props) {
     return (
-        <form className="form" onSubmit={props.searchLastName}>
-            <input
+        <Form onSubmit={props.searchLastName}>
+            <Form.Control
                 onChange={props.handleInputChange}
                 value={props.value}
-                className="form-control"
                 name="search"
                 type="text"
                 placeholder="Search"
             />
-        </form>
+        </Form>
     );
 }
 

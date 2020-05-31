@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import { Table, Button } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 
 function ResultsTable(props) {
     return (
@@ -8,7 +8,7 @@ function ResultsTable(props) {
             <thead>
                 <tr>
                     <th scope="col">Image</th>
-                    <th scope="col"><Button onClick={() => props.onClick("name.last")}>Name</Button></th>
+                    <th scope="col" style={{cursor: "pointer"}} onClick={() => props.onClick("name.last")}>Name</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Email</th>
                     <th scope="col">DOB</th>
